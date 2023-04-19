@@ -1,0 +1,6 @@
+[submodule "Emacs/.config/doom"]
+	path = Emacs/.config/doom
+	url = git@github.com:colawithsauce/private-doom
+[submodule "Rime/.local/share/fcitx5/rime"]
+	path = Rime/.local/share/fcitx5/rime
+	url = https://github.com/omgredfog/98wubi
