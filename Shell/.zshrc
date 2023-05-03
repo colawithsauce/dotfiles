@@ -91,10 +91,11 @@ alias python=pypy3
 alias pip="pypy3 -m pip"
 alias s=sdcv
 alias c="emacsclient -c"
+alias t="emacsclient -t"
 alias v="nvim"
 alias vv="sudo -E nvim"
 
-alias mg="emacsclient -t --eval \"(magit)\""
+alias mg="emacsclient -c --eval \"(magit)\""
 
 # User configuration
 
