@@ -8,3 +8,7 @@ CompileFlags:
     - -I/opt/cuda/targets/x86_64-linux/include
     - -L/opt/cuda/targets/x86_64-linux/lib
     - lcuda
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
