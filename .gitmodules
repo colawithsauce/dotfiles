@@ -4,3 +4,4 @@
 [submodule "Rime/.local/share/fcitx5/rime"]
 	path = Rime/.local/share/fcitx5/rime
 	url = https://github.com/omgredfog/98wubi
+	ignore = dirty

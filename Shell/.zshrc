@@ -87,15 +87,43 @@ export https_proxy=http://127.0.0.1:7890
 
 export PATH=$PATH:~/.local/bin:/opt/cuda/extras/compute-sanitizer
 
+# rust
+export PATH=$PATH:~/.cargo/bin:~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin
+
 alias python=pypy3
 alias pip="pypy3 -m pip"
+
 alias s=sdcv
+
 alias c="emacsclient -c"
 alias t="emacsclient -t"
-alias v="nvim"
+
+alias v=vi
 alias vv="sudo -E nvim"
 
-alias mg="emacsclient -c --eval \"(magit)\""
+alias mg="emacsclient --eval \"(magit)\" -t"
+
+e() {
+    local TMP;
+    if [[ "$1" == "-" ]]; then
+        TMP="$(mktemp /tmp/emacsstdinXXX)";
+        cat >"$TMP";
+        if ! emacsclient --alternate-editor /usr/bin/false --eval "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"${TMP}\") (delete-file \"${TMP}\"))"  > /dev/null 2>&1; then
+            emacs --eval "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"${TMP}\") (delete-file \"${TMP}\"))" &
+        fi;
+    else
+        emacsclient --alternate-editor "emacs" --no-wait "$@" > /dev/null 2>&1 &
+    fi;
+}
+
+# if call without argument, call `nvim .`; else call nvim with all its arguments
+function vi () {
+    if [ $# -eq 0 ]; then
+        nvim .
+    else
+        nvim $@
+    fi
+}
 
 # User configuration
 
@@ -118,3 +146,4 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+eval "$(direnv hook zsh)"
