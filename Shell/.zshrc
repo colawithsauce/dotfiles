@@ -95,8 +95,9 @@ alias pip="pypy3 -m pip"
 
 alias s=sdcv
 
-alias c="emacsclient -c"
 alias t="emacsclient -t"
+
+alias rm=trash
 
 alias v=vi
 alias vv="sudo -E nvim"
@@ -104,16 +105,14 @@ alias vv="sudo -E nvim"
 alias mg="emacsclient --eval \"(magit)\" -t"
 
 e() {
-    local TMP;
     if [[ "$1" == "-" ]]; then
-        TMP="$(mktemp /tmp/emacsstdinXXX)";
-        cat >"$TMP";
-        if ! emacsclient --alternate-editor /usr/bin/false --eval "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"${TMP}\") (delete-file \"${TMP}\"))"  > /dev/null 2>&1; then
-            emacs --eval "(let ((b (create-file-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"${TMP}\") (delete-file \"${TMP}\"))" &
-        fi;
+        TMP="$(mktemp /tmp/stdin-XXX)"
+        cat >$TMP
+        emacsclient -a "emacs -nw" $TMP -t
+        rm $TMP
     else
-        emacsclient --alternate-editor "emacs" --no-wait "$@" > /dev/null 2>&1 &
-    fi;
+        emacsclient -a "emacs -nw" "$@" -t
+    fi
 }
 
 # if call without argument, call `nvim .`; else call nvim with all its arguments
