@@ -12,6 +12,11 @@ if true then return {
         },
     },
 
+    -- inlay hints
+    {
+        "simrat39/inlay-hints.nvim"
+    },
+
     -- Codeium is greate
     {
         "Exafunction/codeium.vim",

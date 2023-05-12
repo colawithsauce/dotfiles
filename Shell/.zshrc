@@ -95,32 +95,50 @@ alias pip="pypy3 -m pip"
 
 alias s=sdcv
 
-alias t="emacsclient -t"
-
 alias rm=trash
-
-alias v=vi
-alias vv="sudo -E nvim"
 
 alias mg="emacsclient --eval \"(magit)\" -t"
 
-e() {
-    if [[ "$1" == "-" ]]; then
-        TMP="$(mktemp /tmp/stdin-XXX)"
-        cat >$TMP
-        emacsclient -a "emacs -nw" $TMP -t
-        rm $TMP
-    else
-        emacsclient -a "emacs -nw" "$@" -t
-    fi
+# Emacs alias
+t() {
+  if [[ "$1" == "-" ]]; then # Pipline
+    TMP="$(mktemp /tmp/stdin-XXX)"
+    cat >$TMP
+    emacsclient -a "emacs -nw" $TMP -t
+    rm $TMP
+  elif [[ $# == 0 ]]; then # without argument, open current directory
+    emacsclient -a "emacs -nw" --eval "(treemacs)" -t
+  else
+    emacsclient -a "emacs -nw" "$@" -t
+  fi
+}
+
+# Test if terminal is in emacs terminal
+term_in_emacs () {
+  if [[ "$TERMINFO" == *"emacs"* ]]; then
+    return 0 # True
+  else
+    return 1 # False
+  fi
 }
 
 # if call without argument, call `nvim .`; else call nvim with all its arguments
 function vi () {
+    term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
     if [ $# -eq 0 ]; then
         nvim .
     else
         nvim $@
+    fi
+}
+
+# Sudo version of vi()
+function vis () {
+    term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
+    if [ $# -eq 0 ]; then
+        sudo -E nvim .
+    else
+        sudo -E nvim $@
     fi
 }
 
