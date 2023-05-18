@@ -4,3 +4,4 @@
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.guicursor = "n-v-c-i:block"
+vim.opt.background = "light"

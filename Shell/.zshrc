@@ -107,7 +107,7 @@ t() {
     emacsclient -a "emacs -nw" $TMP -t
     rm $TMP
   elif [[ $# == 0 ]]; then # without argument, open current directory
-    emacsclient -a "emacs -nw" --eval "(treemacs)" -t
+    emacsclient -a "emacs -nw" . -t
   else
     emacsclient -a "emacs -nw" "$@" -t
   fi

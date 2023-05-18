@@ -4,12 +4,32 @@ if true then return {
     -- add gruvbox
     { "ellisonleao/gruvbox.nvim" },
 
+    {
+        'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
+        opts = {
+            use_magit_keybindings = true,
+        }
+    },
+
     -- Configure LazyVim to load gruvbox
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "gruvbox",
+            colorscheme = "one",
         },
+    },
+
+    {
+        "rakr/vim-one"
+    },
+
+    -- root directory
+    {
+        "airblade/vim-rooter"
+    },
+
+    {
+        "sickill/vim-monokai"
     },
 
     -- inlay hints
