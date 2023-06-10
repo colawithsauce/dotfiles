@@ -98,6 +98,7 @@ alias s=sdcv
 alias rm=trash
 
 alias mg="emacsclient --eval \"(magit)\" -t"
+alias e="emacs -nw"
 
 # Emacs alias
 t() {
@@ -142,9 +143,28 @@ function vis () {
     fi
 }
 
-# User configuration
+# GUI version of vi()
+vig ()
+{
+    if [ $# -eq 0 ]; then
+        nvim-qt .
+    else
+        nvim-qt $@
+    fi
+}
+
+export LANG=en_US.UTF-8
+
+# User configuration -- https://unix.stackexchange.com/questions/629783/how-can-i-change-cursor-shape-in-tty
+if [ -t 0 ]; then
+    echo -e '\033[?17;0;64c'
+    # printf '\033[?112c'
+    alias x="startx"
+    alias h="Hyprland"
+fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
+export TERM=xterm-256color
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -164,3 +184,4 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 eval "$(direnv hook zsh)"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
