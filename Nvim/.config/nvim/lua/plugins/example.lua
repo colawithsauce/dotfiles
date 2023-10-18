@@ -4,12 +4,16 @@ if true then return {
     -- add gruvbox
     { "ellisonleao/gruvbox.nvim" },
 
+    -- {
+    --     'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
+    --     opts = {
+    --         use_magit_keybindings = true,
+    --     }
+    -- },
     {
-        'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
-        opts = {
-            use_magit_keybindings = true,
-        }
+        "lukas-reineke/indent-blankline.nvim", enabled = false
     },
+
 
     -- Configure LazyVim to load gruvbox
     {

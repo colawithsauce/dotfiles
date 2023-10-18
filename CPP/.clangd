@@ -1,7 +1,7 @@
 CompileFlags:
   Remove:
-    - -forward-unknown-to-host-compiler
-    - --generate-code=*
-    - -Xcompiler=-fPIC
-    - -ccbin=*
-    # - --options-file
+  - -forward-unknown-to-host-compiler
+  - --generate-code=*
+  - -Xcompiler=-fPIC
+  - -ccbin=*
+  # - --options-file

@@ -72,6 +72,7 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  extract
   zsh-autosuggestions
   zsh-syntax-highlighting
   z
@@ -90,27 +91,29 @@ export PATH=$PATH:~/.local/bin:/opt/cuda/extras/compute-sanitizer
 # rust
 export PATH=$PATH:~/.cargo/bin:~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin
 
-alias python=pypy3
-alias pip="pypy3 -m pip"
+# alias python=pypy3
+# alias pip="pypy3 -m pip"
 
 alias s=sdcv
 
 alias rm=trash
 
 alias mg="emacsclient --eval \"(magit)\" -t"
-alias e="emacs -nw"
+e() {
+  emacs -nw "$@" 2>/dev/null
+}
 
 # Emacs alias
-t() {
+c() {
   if [[ "$1" == "-" ]]; then # Pipline
     TMP="$(mktemp /tmp/stdin-XXX)"
     cat >$TMP
-    emacsclient -a "emacs -nw" $TMP -t
+    emacsclient -a "emacs -nw" $TMP -t 2>/dev/null
     rm $TMP
   elif [[ $# == 0 ]]; then # without argument, open current directory
-    emacsclient -a "emacs -nw" . -t
+    emacsclient -a "emacs -nw" . -t 2>/dev/null
   else
-    emacsclient -a "emacs -nw" "$@" -t
+    emacsclient -a "emacs -nw" "$@" -t 2>/dev/null
   fi
 }
 
@@ -163,6 +166,28 @@ if [ -t 0 ]; then
     alias h="Hyprland"
 fi
 
+# Mail noticing
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+if [[ "$(notmuch count tag:important or tag:concerned or tag:unread)" != 0  ]]; then
+    if [[ "$(notmuch count tag:important)" != 0 ]]; then
+        echo -e "There are ${RED}`notmuch count tag:important`${NC} unread IMPORTANT mails here:"
+        notmuch search tag:important
+    fi
+
+    echo -e "There are ${YELLOW}`notmuch count tag:concerned`${NC} concerned mails, ${CYAN}`notmuch count tag:unread`${NC} unread mails"
+fi
+
+comfirm_important() {
+  notmuch tag -important +comfirmed tag:important
+}
+
+check_concerned() {
+  notmuch tag -concerned +checked tag:concerned
+}
+
 # export MANPATH="/usr/local/man:$MANPATH"
 export TERM=xterm-256color
 
@@ -175,6 +200,9 @@ export EDITOR='nvim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# ESP32 Environment
+alias get_idf=". $HOME/Projects/esp/esp-idf/export.sh"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -185,3 +213,7 @@ export EDITOR='nvim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 eval "$(direnv hook zsh)"
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+
+export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper_lazy.sh
+
