@@ -1,4 +1,10 @@
 CompileFlags:
+  Add:
+  - -I/opt/cuda/include
+  - -I/opt/rocm/include
+  # - -I/opt/rocm/hip/include
+  # - -I/opt/rocm/hipblas/include
+  # - -I/opt/rocm/rocblas/include
   Remove:
   - -forward-unknown-to-host-compiler
   - --generate-code=*

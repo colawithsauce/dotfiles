@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -8,7 +8,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="jovial"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,12 +72,17 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  zsh-history-enquirer
+
   git
+  autojump
   extract
+  # urltools
+  bgnotify
   zsh-autosuggestions
   zsh-syntax-highlighting
-  z
-  )
+  jovial
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,12 +106,12 @@ alias rm=trash
 
 alias mg="emacsclient --eval \"(magit)\" -t"
 e() {
-  emacs -nw "$@" 2>/dev/null
+  emacsclient -t "$@" 2>/dev/null
 }
 
 # Emacs alias
 c() {
-  if [[ "$1" == "-" ]]; then # Pipline
+  if [[ "$1" == "-" ]]; then # Pipeline
     TMP="$(mktemp /tmp/stdin-XXX)"
     cat >$TMP
     emacsclient -a "emacs -nw" $TMP -t 2>/dev/null
@@ -129,11 +135,12 @@ term_in_emacs () {
 # if call without argument, call `nvim .`; else call nvim with all its arguments
 function vi () {
     term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
-    if [ $# -eq 0 ]; then
-        nvim .
-    else
-        nvim $@
-    fi
+    # if [ $# -eq 0 ]; then
+    #     nvim .
+    # else
+    #     nvim $@
+    # fi
+    nvim $@
 }
 
 # Sudo version of vi()
@@ -159,7 +166,7 @@ vig ()
 export LANG=en_US.UTF-8
 
 # User configuration -- https://unix.stackexchange.com/questions/629783/how-can-i-change-cursor-shape-in-tty
-if [ -t 0 ]; then
+if [ -z ${TERMINFO} ]; then
     echo -e '\033[?17;0;64c'
     # printf '\033[?112c'
     alias x="startx"
@@ -180,8 +187,8 @@ if [[ "$(notmuch count tag:important or tag:concerned or tag:unread)" != 0  ]]; 
     echo -e "There are ${YELLOW}`notmuch count tag:concerned`${NC} concerned mails, ${CYAN}`notmuch count tag:unread`${NC} unread mails"
 fi
 
-comfirm_important() {
-  notmuch tag -important +comfirmed tag:important
+confirm_important() {
+  notmuch tag -important +confirmed tag:important
 }
 
 check_concerned() {
@@ -202,6 +209,23 @@ export EDITOR='nvim'
 
 # ESP32 Environment
 alias get_idf=". $HOME/Projects/esp/esp-idf/export.sh"
+
+# This is for unexpected scenarios only.
+# In general mason should install these X-platform
+
+#                  config.fish                  #
+#               Vimacs Mason PATH               #
+export PATH=$PATH:"$HOME/.local/share/nvim/mason/bin"
+export PATH=$PATH:"$HOME/.local/share/gem/ruby/3.0.0/bin"
+
+# HIPCC
+export PATH=$PATH:"/opt/rocm/bin"
+
+# mails
+sync_mail () {
+  echo "Date: `date`" >> /tmp/mail.log && mbsync --all >> /tmp/mail.log 2>&1 && notmuch new >> /tmp/mail.log 2>&1 && afew -tn >> /tmp/mail.log 2>&1
+}
+
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
