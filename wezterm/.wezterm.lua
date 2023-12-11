@@ -14,6 +14,8 @@ end
 
 -- For example, changing the color scheme:
 -- config.color_scheme = "Tokyo Night (Gogh)"
+-- config.color_scheme = "Gruvbox Dark (Gogh)"
+-- config.color_scheme = "Ir Black (base16)"
 config.color_scheme = "Dark+"
 
 -- Tab bar
@@ -27,12 +29,21 @@ config.enable_wayland = true
 
 -- Font
 config.font = wezterm.font_with_fallback({
-	"Recursive Mono Linear Static",
-	"SFMono Nerd Font Mono",
+	-- "Apple Color Emoji",
+	"RecursiveMnCslSt Nerd Font",
 	"LXGW WenKai Mono",
+	"98WB-1",
 })
 
-config.font_size = 20.0
+config.font_size = 18.0
+config.line_height = 1.0
+
+-- Spawn a zsh loginshell in login mode
+config.default_prog = { '/usr/bin/fish', '-l' }
+
+-- kitty protocol
+config.enable_kitty_keyboard = true
+enable_csi_u_key_encoding = true
 
 -- Key
 config.keys = {
@@ -41,6 +52,12 @@ config.keys = {
 	{
 		key = "Enter",
 		mods = "ALT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+
+	{
+		key = "Enter",
+		mods = "CTRL",
 		action = wezterm.action.DisableDefaultAssignment,
 	},
 
@@ -55,6 +72,16 @@ config.keys = {
 		mods = "SHIFT",
 		action = wezterm.action.SendKey({
 			key = " ",
+		}),
+	},
+
+	-- -- FIXME: Or maybe it's not fixable?
+	{
+		key = "i",
+		mods = "CTRL",
+		action = wezterm.action.SendKey({
+			key = "i",
+			mods = "CTRL",
 		}),
 	},
 }

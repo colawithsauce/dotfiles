@@ -1,1 +1,1 @@
-set guifont=Recursive\ Mono\ Casual\ Static:h25
+set guifont=Recursive\ Mono\ Casual\ Static:h15

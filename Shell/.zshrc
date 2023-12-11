@@ -108,12 +108,15 @@ export PATH=$PATH:~/.cargo/bin:~/.rustup/toolchains/nightly-x86_64-unknown-linux
 # alias pip="pypy3 -m pip"
 
 alias s=sdcv
-
 alias rm=trash
+alias neofetch=fastfetch
+alias k="sudo systemctl start sddm"
+alias nok="sudo systemctl stop sddm"
+alias a="tmux a ; or tmux"
 
 alias mg="emacsclient --eval \"(magit)\" -t"
 e() {
-  emacsclient -t "$@" 2>/dev/null
+  emacs -nw "$@" 2>/dev/null
 }
 
 # Emacs alias
@@ -140,7 +143,7 @@ term_in_emacs () {
 }
 
 # if call without argument, call `nvim .`; else call nvim with all its arguments
-function vi () {
+vi () {
     term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
     # if [ $# -eq 0 ]; then
     #     nvim .
@@ -151,7 +154,7 @@ function vi () {
 }
 
 # Sudo version of vi()
-function vis () {
+vis () {
     term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
     if [ $# -eq 0 ]; then
         sudo -E nvim .
@@ -173,11 +176,11 @@ vig ()
 export LANG=en_US.UTF-8
 
 # User configuration -- https://unix.stackexchange.com/questions/629783/how-can-i-change-cursor-shape-in-tty
-if [ -z ${TERMINFO} ]; then
+if [ -z "${TERMINFO}" ]; then
     echo -e '\033[?17;0;64c'
     # printf '\033[?112c'
     alias x="startx"
-    alias h="Hyprland"
+    alias h="exec Hyprland"
 fi
 
 # Mail noticing
@@ -185,13 +188,11 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
-if [[ "$(notmuch count tag:important or tag:concerned or tag:unread)" != 0  ]]; then
-    if [[ "$(notmuch count tag:important)" != 0 ]]; then
-        echo -e "There are ${RED}`notmuch count tag:important`${NC} unread IMPORTANT mails here:"
-        notmuch search tag:important
-    fi
 
-    echo -e "There are ${YELLOW}`notmuch count tag:concerned`${NC} concerned mails, ${CYAN}`notmuch count tag:unread`${NC} unread mails"
+# Only show important messages
+if [[ "$(notmuch count tag:important)" != 0 ]]; then
+    echo -e "There are ${CYAN}`notmuch count tag:important`${NC} unread IMPORTANT mails here:"
+    notmuch search tag:important
 fi
 
 confirm_important() {
@@ -226,7 +227,7 @@ export PATH=$PATH:"$HOME/.local/share/nvim/mason/bin"
 export PATH=$PATH:"$HOME/.local/share/gem/ruby/3.0.0/bin"
 
 # HIPCC
-export PATH=$PATH:"/opt/rocm/bin"
+# export PATH=$PATH:"/opt/rocm/bin"
 
 # mails
 sync_mail () {
@@ -254,3 +255,4 @@ source /usr/bin/virtualenvwrapper_lazy.sh
 # customization
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 setopt nocorrectall
+export PATH=$PATH:$HOME/bin

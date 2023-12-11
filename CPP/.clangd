@@ -1,14 +1,4 @@
 CompileFlags:
-  Add:
-  - -I/opt/cuda/include
-  - -I/opt/rocm/include
-  - --std=c++17
-  # - -I/opt/rocm/llvm/lib/clang/16.0.0/include/
-  # - -D__HIP_PLATFORM_HCC__=
-  - -D__HIP_PLATFORM_AMD__=
-  # - -I/opt/rocm/hip/include
-  # - -I/opt/rocm/hipblas/include
-  # - -I/opt/rocm/rocblas/include
   Remove:
   - -forward-unknown-to-host-compiler
   - --generate-code=*
