@@ -112,7 +112,9 @@ alias rm=trash
 alias neofetch=fastfetch
 alias k="sudo systemctl start sddm"
 alias nok="sudo systemctl stop sddm"
-alias a="tmux a ; or tmux"
+alias g="sudo systemctl start gdm"
+alias nog="sudo systemctl stop gdm"
+alias a="tmux a || tmux"
 
 alias mg="emacsclient --eval \"(magit)\" -t"
 e() {
@@ -190,13 +192,13 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Only show important messages
-if [[ "$(notmuch count tag:important)" != 0 ]]; then
+if [[ "$(notmuch count tag:important and not tag:confirmed)" != 0 ]]; then
     echo -e "There are ${CYAN}`notmuch count tag:important`${NC} unread IMPORTANT mails here:"
-    notmuch search tag:important
+    notmuch search tag:important and not tag:confirmed
 fi
 
 confirm_important() {
-  notmuch tag -important +confirmed tag:important
+  notmuch tag +confirmed tag:important
 }
 
 check_concerned() {
