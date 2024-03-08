@@ -10,13 +10,23 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+
+function scheme_for_appearance(appearance)
+  if appearance:find "Dark" then
+    return "Catppuccin Mocha"
+  else
+    return "Catppuccin Latte"
+  end
+end
+
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
 -- config.color_scheme = "Tokyo Night (Gogh)"
 -- config.color_scheme = "Gruvbox Dark (Gogh)"
 -- config.color_scheme = "Ir Black (base16)"
-config.color_scheme = "Dark+"
+-- config.color_scheme = "Dark+"
+config.color_scheme = "Catppuccin Latte"
 
 -- Tab bar
 config.enable_tab_bar = true
@@ -26,6 +36,14 @@ config.tab_bar_at_bottom = true
 
 -- Wayland support
 config.enable_wayland = true
+
+-- Bell
+config.audible_bell = "Disabled"
+config.visual_bell = {
+  fade_in_duration_ms = 75,
+  fade_out_duration_ms = 75,
+  target = 'CursorColor',
+}
 
 -- Font
 config.font = wezterm.font_with_fallback({
@@ -39,11 +57,13 @@ config.font_size = 18.0
 config.line_height = 1.0
 
 -- Spawn a zsh loginshell in login mode
-config.default_prog = { '/usr/bin/fish', '-l' }
+config.default_prog = { 'tmux', 'new-session', '-t', 'hack', '-AsHack' }
 
 -- kitty protocol
 config.enable_kitty_keyboard = true
-enable_csi_u_key_encoding = true
+config.enable_csi_u_key_encoding = true
+
+-- config.window_background_opacity = 0.74
 
 -- Key
 config.keys = {

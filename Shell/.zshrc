@@ -87,8 +87,11 @@ plugins=(
   # urltools
   # bgnotify
   zsh-autosuggestions
-  zsh-syntax-highlighting
+  fast-syntax-highlighting
+  zsh-history-substring-search
+  nix-zsh-completions
   jovial
+  H-S-MW
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -104,6 +107,9 @@ export PATH=$PATH:~/.local/bin:/opt/cuda/extras/compute-sanitizer
 # rust
 export PATH=$PATH:~/.cargo/bin:~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin
 
+# haskell
+export PATH=$PATH:~/.ghcup/bin
+
 # alias python=pypy3
 # alias pip="pypy3 -m pip"
 
@@ -115,6 +121,8 @@ alias nok="sudo systemctl stop sddm"
 alias g="sudo systemctl start gdm"
 alias nog="sudo systemctl stop gdm"
 alias a="tmux a || tmux"
+
+alias nvrun="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
 
 alias mg="emacsclient --eval \"(magit)\" -t"
 e() {
@@ -193,7 +201,7 @@ NC='\033[0m' # No Color
 
 # Only show important messages
 if [[ "$(notmuch count tag:important and not tag:confirmed)" != 0 ]]; then
-    echo -e "There are ${CYAN}`notmuch count tag:important`${NC} unread IMPORTANT mails here:"
+    echo -e "There are ${CYAN}`notmuch count tag:important and not tag:confirmed`${NC} not confirmed IMPORTANT mails here:"
     notmuch search tag:important and not tag:confirmed
 fi
 
@@ -212,7 +220,6 @@ export TERM=xterm-256color
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -245,6 +252,13 @@ sync_mail () {
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+. /usr/share/fzf/fzf-extras.zsh
+alias nvrun="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
+
+alias unlock_emacs="echo hello | wl-copy"
+# alias wechat="curl -sL https://gitee.com/mirrors/dochat/raw/main/dochat.sh | DOCHAT_DPI=144 bash"
+
+
 eval "$(direnv hook zsh)"
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
@@ -258,3 +272,9 @@ source /usr/bin/virtualenvwrapper_lazy.sh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 setopt nocorrectall
 export PATH=$PATH:$HOME/bin
+
+prompt_nix_shell_setup
+
+# home-manager environment varibles
+. $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+

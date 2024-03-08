@@ -3,7 +3,9 @@
 local default_plugins = {
 
   "nvim-lua/plenary.nvim",
-
+  {
+    "delphinus/cmp-ctags",
+  },
   {
     "NvChad/base46",
     branch = "v2.0",
