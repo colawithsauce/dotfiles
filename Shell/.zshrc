@@ -80,16 +80,17 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   # zsh-history-enquirer
-
   git
-  # autojump
+  autojump
   extract
   # urltools
   # bgnotify
   zsh-autosuggestions
   fast-syntax-highlighting
   zsh-history-substring-search
+  per-directory-history
   nix-zsh-completions
+  ssh-agent
   jovial
   H-S-MW
 )
@@ -110,19 +111,29 @@ export PATH=$PATH:~/.cargo/bin:~/.rustup/toolchains/nightly-x86_64-unknown-linux
 # haskell
 export PATH=$PATH:~/.ghcup/bin
 
+# LC_ALL
+export LC_ALL=en_US.UTF-8
+
+
 # alias python=pypy3
 # alias pip="pypy3 -m pip"
 
-alias s=sdcv
 alias rm=trash
 alias neofetch=fastfetch
-alias k="sudo systemctl start sddm"
-alias nok="sudo systemctl stop sddm"
-alias g="sudo systemctl start gdm"
-alias nog="sudo systemctl stop gdm"
+alias ls="eza"
 alias a="tmux a || tmux"
 
 alias nvrun="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
+
+# function yy() {
+# 	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+# 	/usr/bin/env yazi "$@" --cwd-file="$tmp"
+# 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+# 		cd -- "$cwd"
+# 	fi
+# 	rm -f -- "$tmp"
+# }
+alias yy=yazi
 
 alias mg="emacsclient --eval \"(magit)\" -t"
 e() {
@@ -152,35 +163,9 @@ term_in_emacs () {
   fi
 }
 
-# if call without argument, call `nvim .`; else call nvim with all its arguments
 vi () {
     term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
-    # if [ $# -eq 0 ]; then
-    #     nvim .
-    # else
-    #     nvim $@
-    # fi
-    nvim $@
-}
-
-# Sudo version of vi()
-vis () {
-    term_in_emacs && echo "It's in Emacs! WHAT THE HELL ARE YOU DOING?" && return
-    if [ $# -eq 0 ]; then
-        sudo -E nvim .
-    else
-        sudo -E nvim $@
-    fi
-}
-
-# GUI version of vi()
-vig ()
-{
-    if [ $# -eq 0 ]; then
-        neovide .
-    else
-        neovide $@
-    fi
+    vim $@
 }
 
 export LANG=en_US.UTF-8

@@ -48,7 +48,7 @@ config.visual_bell = {
 -- Font
 config.font = wezterm.font_with_fallback({
 	-- "Apple Color Emoji",
-	"RecursiveMnCslSt Nerd Font",
+	"RecursiveMnLnrSt Nerd Font",
 	"LXGW WenKai Mono",
 	"98WB-1",
 })
