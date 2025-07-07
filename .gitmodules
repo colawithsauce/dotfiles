@@ -3,4 +3,4 @@
 	url = https://github.com/catppuccin/waybar.git
 [submodule "dotconfig/doom"]
 	path = dotconfig/doom
-	url = https://github.com/colawithsauce/private-doom.git
+	url = git@github.com:colawithsauce/private-doom.git
