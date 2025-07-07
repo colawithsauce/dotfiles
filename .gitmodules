@@ -1,0 +1,3 @@
+[submodule "dotconfig/waybar/catppuccin"]
+	path = dotconfig/waybar/catppuccin
+	url = https://github.com/catppuccin/waybar.git
