@@ -26,17 +26,18 @@ if status is-interactive
         alias vim "zed -a"
     else
         # 如果已有 nvim session，就用 nvr，否则 fallback 到 nvim
-        if test "$NVIM_LISTEN_ADDRESS"
-            set -x EDITOR "nvr -s --remote-tab"
-            set -x VISUAL "$EDITOR"
-            alias vi "$EDITOR"
-            alias vim "$EDITOR"
-        else
-            set -x EDITOR nvim
-            set -x VISUAL nvim
-            alias vi nvim
-            alias vim nvim
-        end
+        # if test "$NVIM_LISTEN_ADDRESS"
+        #     set -x EDITOR "nvr -s --remote-tab"
+        #     set -x VISUAL "$EDITOR"
+        #     alias vi "$EDITOR"
+        #     alias vim "$EDITOR"
+        # else
+        set -x EDITOR nvim
+        set -x VISUAL nvim
+        alias vi nvim
+        alias vim nvim
+        alias magit='emacsclient -t -e "(magit)"'
+        # end
     end
 
     if test "$TERM_PROGRAM" = kitty
