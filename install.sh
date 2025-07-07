@@ -40,7 +40,7 @@ link_file() {
   if [ -L "$dst" ] && [ "$(readlink -f "$dst")" == "$src" ]; then
     info "Link already exists: $dst -> $src"
     return
-  }
+  fi
 
   # Remove broken symlinks at the destination.
   if [ -L "$dst" ]; then
