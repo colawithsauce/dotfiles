@@ -1,0 +1,26 @@
+__build_info:
+  rime_version: 1.10.0
+  timestamps:
+    default: 1749793936
+    default.custom: 1751518179
+    key_bindings: 1749793936
+    key_bindings.custom: 1749793936
+    punctuation: 1749793936
+    punctuation.custom: 1749793936
+    wb_spelling.custom: 1749793936
+    wb_spelling.schema: 1749793936
+menu:
+  page_size: 9
+schema:
+  author:
+    - "LuaTable by wubixiaozhu"
+  description: |
+    伪方案，不能打字。
+    不要选我，不要修改本方案及配套词典。
+    仅用于辅助三重注解方案实现注解功能。
+
+  name: "伪方案"
+  schema_id: wb_spelling
+  version: 12.28
+translator:
+  dictionary: wb_spelling

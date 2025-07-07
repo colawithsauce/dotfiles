@@ -1,0 +1,25 @@
+patch:
+  schema_list:
+    - {schema: wubi98_ci}
+    - {schema: wb_spelling}
+    - {schema: wubi98_dz}
+    - {schema: wubi98_U}
+    - {schema: py}
+  # ----------------------------------------------------------------
+  # 按一下左 Shift 切换中英文，按住则为正常的 Shift 功能
+  # ----------------------------------------------------------------
+  # "key_binder/bindings":
+  #   # - { when: composing, accept: Shift_L, send: Escape } # 可选：在输入编码时按 Shift，清空编码
+  #   - { when: has_menu, accept: Shift_L, send: Escape }    # 在有候选框时按 Shift，清空编码并上屏
+  #   - { when: composing, accept: Shift_L, send: Shift_L } # 使 Shift 在组合键中正常工作
+  #   - { accept: "Release_Shift_L", toggle: ascii_mode, when: "composing" } # 在输入时，释放 Shift 切换模式
+  #   - { accept: "Shift_L", toggle: ascii_mode, when: "empty" } # 在无输入时，按下 Shift 切换模式
+  
+  # ----------------------------------------------------------------
+  # (可选) 禁用 CapsLock 的中英文切换功能
+  # 您提供的配置就是这个作用，如果需要可以保留
+  # ----------------------------------------------------------------
+  "ascii_composer/switch_key":
+    Caps_Lock: noop
+    Shift_L: commit_code     # 避免与上面的配置冲突
+    Shift_R: commit_code

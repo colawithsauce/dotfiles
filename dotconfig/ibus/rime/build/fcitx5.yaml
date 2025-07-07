@@ -1,0 +1,19 @@
+__build_info:
+  rime_version: 1.10.0
+  timestamps:
+    fcitx5: 1698421135
+    fcitx5.custom: 1749793936
+    hot_keys: 1749793936
+    hot_keys.custom: 1749793936
+app_options:
+  cmd.exe:
+    ascii_mode: false
+  test1.exe:
+    ascii_mode: false
+  test2.exe:
+    ascii_mode: false
+  test3.exe:
+    ascii_mode: false
+  test4.exe:
+    ascii_mode: false
+config_version: 0.22
