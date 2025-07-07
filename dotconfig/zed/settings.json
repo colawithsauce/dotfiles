@@ -1,0 +1,59 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "agent": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet"
+    }
+  },
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "ssh_connections": [
+    {
+      "host": "192.168.1.3",
+      "username": "root",
+      "projects": []
+    }
+  ],
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_text_threads": false
+  },
+  "completions": {
+    "words": "disabled"
+  },
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_family": "MonacoLigaturized Nerd Font Mono",
+  "use_on_type_format": false,
+  "buffer_font_size": 20,
+  "theme": {
+    "mode": "system",
+    "light": "Hex Latte Theme",
+    "dark": "Base16 Horizon Terminal Dark"
+  },
+  "terminal": {
+    "blinking": "off",
+    "shell": {
+      "program": "/usr/bin/fish"
+    }
+  },
+  "languages": {
+    "C++": {
+      "format_on_save": "on",
+      "tab_size": 2
+    }
+  }
+}
